@@ -1,0 +1,19 @@
+---
+
+- name: neo4j is installed
+  package:
+    name: neo4j
+    state: installed
+
+- name: neo4j is configured
+  template:
+    src: neo4j.conf.j2
+    dest: /etc/neo4j/neo4j.conf
+  notify: reload neo4j
+
+- name: neo4j is started
+  service:
+    name: neo4j
+    state: started
+    enabled: yes
+
