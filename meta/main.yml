@@ -1,4 +1,24 @@
 ---
 
 dependencies:
-  - { role: yum/repo/neo4j }
+
+  - role: rpm/pubkey
+    key_src: neotechnology.gpg.key-1
+    dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-NEOTECHNOLOGY-1
+    fingerprint: 1EEF B876 7D49 24B8 6EAD  08A4 59D7 00E4 D37F 5F19
+
+  - role: rpm/pubkey
+    key_src: neotechnology.gpg.key-2
+    dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-NEOTECHNOLOGY-2
+    fingerprint: 66D3 4E95 1A8C 53D9 0242  132B 26C9 5CF2 0118 2252
+
+  - role: yum/repo
+    name: neo4j
+    description: Neo4j RPM Repository
+    baseurl: https://yum.neo4j.org/stable
+    enabled: yes
+    gpgcheck: yes
+    gpgkey:
+    - file:///etc/pki/rpm-gpg/RPM-GPG-KEY-NEOTECHNOLOGY-1
+    - file:///etc/pki/rpm-gpg/RPM-GPG-KEY-NEOTECHNOLOGY-2
+
