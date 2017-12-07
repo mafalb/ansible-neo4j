@@ -1,6 +1,6 @@
 ---
 
-- name: restarted neo4j
+- name: restart neo4j
   service:
     name: neo4j
     state: restarted
