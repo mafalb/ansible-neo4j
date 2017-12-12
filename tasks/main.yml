@@ -9,6 +9,7 @@
   template:
     src: neo4j.conf.j2
     dest: /etc/neo4j/neo4j.conf
+    backup: yes
   notify: restart neo4j
 
 - name: neo4j is started
