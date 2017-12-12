@@ -2,7 +2,7 @@
 
 - name: neo4j is installed
   package:
-    name: neo4j
+    name: "{{ neo4j_package }}"
     state: installed
 
 - name: neo4j is configured
