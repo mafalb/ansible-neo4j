@@ -7,9 +7,12 @@
 
 - name: neo4j is configured
   template:
-    src: neo4j.conf.j2
+    src: "{{ item }}"
     dest: /etc/neo4j/neo4j.conf
     backup: yes
+  with_first_found:
+    - "{{ playbook_dir }}/templates/{{ neo4j_cfg }}"
+    - neo4j.conf.j2
   notify: restart neo4j
 
 - name: neo4j is started
