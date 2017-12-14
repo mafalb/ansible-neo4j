@@ -1,5 +1,11 @@
 ---
 
+- name: storage is managed, i.e. lvm, filesystems
+  include_role:
+    name: neo4j
+    tasks_from: storage
+  when: manage_storage
+
 - name: neo4j is installed
   package:
     name: "{{ neo4j_package }}"
