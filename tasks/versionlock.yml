@@ -1,0 +1,23 @@
+---
+
+- name: get current versionlock for neo4j
+  command: yum versionlock
+  args:
+    warn: no
+  register: neo4j_current_versionlock
+  check_mode: no
+  changed_when: no
+
+- name: remove old versionlock for neo4j
+  command: yum versionlock delete {{ neo4j_package }}
+  when: neo4j_current_versionlock.stdout.find(neo4j_package) == -1
+  check_mode: no
+  args:
+    warn: no
+
+- name: add new versionlock for {{ neo4j_package }}
+  command: yum versionlock add {{ neo4j_package }}
+  when: neo4j_current_versionlock.stdout.find(neo4j_package) == -1
+  check_mode: no
+  args:
+    warn: no

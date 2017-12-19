@@ -6,6 +6,12 @@
     tasks_from: storage
   when: manage_storage
 
+- name: versionlock for neo4j
+  include_role:
+    name: neo4j
+    tasks_from: versionlock
+  when: neo4_versionlock
+
 - name: neo4j is installed
   package:
     name: "{{ neo4j_package }}"
