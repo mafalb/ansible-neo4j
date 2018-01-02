@@ -4,3 +4,4 @@
   service:
     name: neo4j
     state: restarted
+    sleep: 5
