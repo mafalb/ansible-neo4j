@@ -13,7 +13,7 @@ dependencies:
     fingerprint: 66D3 4E95 1A8C 53D9 0242  132B 26C9 5CF2 0118 2252
 
   - role: yum/repo
-    name: neo4j
+    reponame: neo4j
     description: Neo4j RPM Repository
     baseurl: https://yum.neo4j.org/stable
     enabled: yes
