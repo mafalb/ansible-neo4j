@@ -1,8 +1,13 @@
 ---
 
-neo4j_package: neo4j
 fs_mountpoint: /var/lib/neo4j
 fs_lv_name: neo4j
 fs_fstype: xfs
 fs_mountoptions: defaults,nodev,nosuid,noexec
 
+neo4j:
+  package: neo4j
+  fullpackage: neo4j
+  versionlock: false
+  manage_storage: false  
+  external_config_file: false

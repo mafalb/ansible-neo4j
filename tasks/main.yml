@@ -4,27 +4,40 @@
   include_role:
     name: neo4j
     tasks_from: storage
-  when: manage_storage
+  when: neo4j.manage_storage
 
-- name: versionlock for neo4j
-  include_role:
-    name: neo4j
-    tasks_from: versionlock
-  when: neo4_versionlock
+- name: remove old versionlock for neo4j
+  command: yum versionlock delete {{ neo4j.package }}
+  args:
+    warn: false
+  check_mode: no
 
 - name: neo4j is installed
   package:
-    name: "{{ neo4j_package }}"
+    name: "{{ neo4j.package }}"
     state: installed
 
+- name: add new versionlock for {{ neo4j.package }}
+  when: neo4j.versionlock
+  command: yum versionlock add {{ neo4j.package }}
+  args:
+    warn: false
+  check_mode: no
+
 - name: neo4j is configured
+  when: not neo4j.external_config_file
   template:
-    src: "{{ item }}"
+    src: neo4j.conf.j2
     dest: /etc/neo4j/neo4j.conf
     backup: yes
-  with_first_found:
-    - "{{ playbook_dir }}/templates/{{ neo4j_cfg }}"
-    - neo4j.conf.j2
+  notify: restart neo4j
+
+- name: neo4j is configured
+  when: neo4j.external_config_file
+  template:
+    src: "{{ playbook_dir }}/{{ neo4j.external_config_file }}"
+    dest: /etc/neo4j/neo4j.conf
+    backup: yes
   notify: restart neo4j
 
 - name: neo4j is started
@@ -32,4 +45,3 @@
     name: neo4j
     state: started
     enabled: yes
-
