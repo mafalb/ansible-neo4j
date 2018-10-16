@@ -7,7 +7,7 @@
   when: neo4j.manage_storage
 
 - name: remove old versionlock for neo4j
-  command: yum versionlock delete {{ neo4j.package }}
+  command: yum versionlock delete neo4j-*
   args:
     warn: false
   check_mode: no
