@@ -1,0 +1,12 @@
+---
+
+- name: certificate does exist
+  template:
+    src: neo4j.cert.j2
+    dest: /var/lib/neo4j/certificates/neo4j.cert
+    owner: neo4j
+    group: neo4j
+    mode: 0600
+    backup: yes
+  notify: restart neo4j
+

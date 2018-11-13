@@ -1,0 +1,5 @@
+{{ lookup('file', playbook_dir + '/' + cert) }}
+{% for cacert in chain %}
+{{ lookup('file', playbook_dir + '/' + cacert) }}
+{% endfor %}
+{{ lookup('file', playbook_dir + '/' + root) }}
